@@ -16,7 +16,7 @@ git commit -m ''
 
 ## 查看历史区的版本
 ```
-git log 
+git log
 git reset --hard 版本id
 git reflog
 ```
@@ -96,9 +96,29 @@ git commit -a -m'drag'
 
 ## 合并
 git rebase 变基
-git cherry-pick 精选 
+git cherry-pick 精选
 
 ## 显示结构
 ```
 git log --graph --oneline --decorate
+```
+
+## 创建忽略文件
+将项目提交到github上，需要在github上创建一个空的仓库
+
+## 添加远程仓库的连接
+```
+git remote add 名字  地址
+```
+## 查看配置的所有配置的地址
+```
+git remote -v
+```
+## 删除地址
+```
+git remote rm 名字
+```
+## upstream
+```
+-u 下次提交或者拉取代码可以直接git push 或者git pull
 ```
