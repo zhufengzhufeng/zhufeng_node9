@@ -36,5 +36,7 @@ Object.defineProperty(school,'age',{ //给对象定义属性
 console.log(school);
 /* legacy: obj, showHidden 显示隐藏属性, depth 深度, colors 颜色*/
 console.log(util.inspect(school,{showHidden:true,depth:1,colors:true}));
-
-
+// 检测数据类型
+util.isArray([]);
+util.isBoolean([]);
+util.isDate(new Date());
