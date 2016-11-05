@@ -82,3 +82,7 @@ Buffer.myConcat = function (list, totalLength) {
     return buffer.slice(0,index);//返回最终的结果
 };
 console.log(Buffer.myConcat([buf1,buf2,buf3]).toString());
+
+//4. isBuffer()
+console.log(Buffer.isBuffer([1,2,3]));
+
