@@ -2,6 +2,7 @@ function Girl() {
     this._events = {}; //创建一个存放对应关系的盒子
     this.smile = '大笑'
 }
+
 Girl.prototype.on = function (eventName,callback) {
     //制作一对多的对应关系
     //{'有钱':['buyCar','buyPack']}
@@ -27,7 +28,7 @@ Girl.prototype.emit = function (eventName) {
 Girl.prototype.removeListener = function (eventName,callback) {
     //数组的filter方法
     if(this._events[eventName]){
-        this._events[eventName] = this._events[eventName].filter(function (item) {
+        this._events[eventName] = this._events[eventName].filter((item)=>{
             return item!=callback; //为false则删除，为true则留下
         });
     }
@@ -36,14 +37,7 @@ var girl = new Girl();
 function buyPack(who,other) {console.log(who+'买lv包'+other+this.smile);}
 function buyCar(who,other) {console.log(who+'买bmw'+other);}
 girl.once('有钱',buyPack); //先绑定，绑定后执行，执行后删除这个事件，在次执行则不会被触发
-girl.on('有钱',buyCar);
-girl.removeListener('有钱',buyCar);//移除方法
+//girl.on('有钱',buyCar);
+//girl.removeListener('有钱',buyCar);//移除方法
 girl.emit('有钱','老公','给别人');//当触发有钱时执行buyPack和buyCar
 girl.emit('有钱','老公','给别人');//当触发有钱时执行buyPack和buyCar
-
-
-
-/* var a = function (c,d) {
- return c+d
- };
- let a = (c,d)=>c+d*/
