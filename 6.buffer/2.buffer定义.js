@@ -42,15 +42,27 @@ buffer.write('珠峰',0);//默认写入长度为内容长度,编码格式utf8
 buffer.write('培训',6,6,'utf8'); //数组里的方法包前不包后 arr.slice(0,1)
 console.log(buffer.toString()); //将buffer转化为字符串
 //2. copy方法 将n个小buffer粘贴到buffer上
-var buffer = new Buffer(6);
-var buf1 = new Buffer('珠');
-var buf2 = new Buffer('峰');
+var buffer = new Buffer(12);
+var buf1 = new Buffer('珠峰培');
+var buf2 = new Buffer('训');
 //targetBuffer,目标buffer
 //targetStart,目标的开始
-//sourceStart,源的开始
-//sourceEnd 源的结束
-buf1.copy(buffer);
-buf2.copy(buffer);
-console.log(buffer.toString());
-
-
+//sourceStart,原的开始
+//sourceEnd 原的结束
+buf1.copy(buffer,0);
+buf2.copy(buffer,9);
+console.log(buffer.toString()); //copy方法将多个小buffer写入到大buffer上
+//3. concat方法 拼接方法
+//将多个buffer拼成一个大buffer
+var buf1 = new Buffer('珠峰培');
+var buf2 = new Buffer('训');
+var newBuffer = Buffer.concat([buf1,buf2],40);
+console.log(newBuffer.toString());
+//我们要自己写一个myConcat方法，判断是否传入长度,长度过大，留取有效长度
+//slice方法,copy方法
+Buffer.myConcat = function (list, totalLength) {
+    //获取buf1和buf2 将两个buffer粘贴到大buffer（根据长度构建buffer）
+    //截取有效的buffer返回
+    return 
+}
+console.log(Buffer.myConcat([buf1,buf2],100).toString());
