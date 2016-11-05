@@ -13,10 +13,15 @@ fs.appendFileSync();*/
 
 //写一个拷贝文件的方法 同步异步的, 先读取在写入
 function copySync(source,target) {
-
+    var result = fs.readFileSync(source);
+    fs.writeFileSync(target,result);
 }
 copy('./name.txt','./name1.txt');
 function copy(source,target) {
-    
+    fs.readFile(source,function (err,data) {
+        if(err)console.log(err);
+        fs.writeFile(target,data);
+    });
 }
 copy('./name.txt','./name1.txt');
+//readFile的缺点，不能读取比内存大的文件，适合读小文件（读取到内存中的）

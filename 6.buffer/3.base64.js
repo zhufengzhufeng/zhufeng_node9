@@ -34,10 +34,23 @@ console.log(str[57]+str[56]+str[62]+str[32]); //54+g base64编码
 function base64(str) {
     var buffer = new Buffer(str);
     //1.先将buffer里的每一个字节全部转换成2进制，拼接到一起
-    //2.将整个拼接好的内容每6位 分开，前面+ 两个0
+    //'101010 101010 10每6位 分开，前面+ 两个0
     //3.转换成10进制
     //4.去可见编码中取值
-    console.log(buffer[0]); //将10进制转化成2进制
+    var str1 = "";
+    buffer.forEach(function (item) { //item十进制
+        str1 += (item).toString(2); //将10进制转换成2进制，累加
+    });
+    var arr = []; //每6位拆分开
+    for (var i=0;i<str1.length/6;i++){
+        arr.push(parseInt('00'+str1.slice(i*6,(i+1)*6),2));
+    }
+    var BASE = "";
+    var str2 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    arr.forEach(function (item) {
+        BASE += str2[item];
+    });
+    return BASE;
 }
 console.log(base64('珠峰培训'));
 
