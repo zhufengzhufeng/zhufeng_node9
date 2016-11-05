@@ -56,6 +56,7 @@ console.log(buffer.toString()); //copy方法将多个小buffer写入到大buffer
 //将多个buffer拼成一个大buffer
 var buf1 = new Buffer('珠峰培');
 var buf2 = new Buffer('训');
+var buf3 = new Buffer('node');
 var newBuffer = Buffer.concat([buf1,buf2],40);
 console.log(newBuffer.toString());
 //我们要自己写一个myConcat方法，判断是否传入长度,长度过大，留取有效长度
@@ -63,6 +64,20 @@ console.log(newBuffer.toString());
 Buffer.myConcat = function (list, totalLength) {
     //获取buf1和buf2 将两个buffer粘贴到大buffer（根据长度构建buffer）
     //截取有效的buffer返回
-    return 
-}
-console.log(Buffer.myConcat([buf1,buf2],100).toString());
+    //先判断是否传递 totalLength
+    if(typeof totalLength == 'undefined' ){ //没有传递长度
+        list.forEach(function (buf) {
+            totalLength += buf.length; //计算出总长度
+        });
+    }
+    //通过长度来构建一个大buffer
+    var buffer = new Buffer(totalLength);
+    //目的是将每一个小buffer copy到大buffer上
+    var index = 0;
+    list.forEach(function (buf) {
+        buf.copy(buffer,index);//每次写的时候要维护一个索引
+        index += buf.length; //每次写入一个buffer后，就将长度向上增加写入buffer的长度
+    });
+    return buffer.slice(0,index);//返回最终的结果
+};
+console.log(Buffer.myConcat([buf1,buf2,buf3],100).toString());
