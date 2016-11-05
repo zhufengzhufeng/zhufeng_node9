@@ -66,6 +66,7 @@ Buffer.myConcat = function (list, totalLength) {
     //截取有效的buffer返回
     //先判断是否传递 totalLength
     if(typeof totalLength == 'undefined' ){ //没有传递长度
+        totalLength = 0;
         list.forEach(function (buf) {
             totalLength += buf.length; //计算出总长度
         });
@@ -80,4 +81,4 @@ Buffer.myConcat = function (list, totalLength) {
     });
     return buffer.slice(0,index);//返回最终的结果
 };
-console.log(Buffer.myConcat([buf1,buf2,buf3],100).toString());
+console.log(Buffer.myConcat([buf1,buf2,buf3]).toString());
