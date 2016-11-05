@@ -50,6 +50,7 @@ var buf2 = new Buffer('峰');
 //sourceStart,源的开始
 //sourceEnd 源的结束
 buf1.copy(buffer);
+buf2.copy(buffer);
 console.log(buffer.toString());
 
 
