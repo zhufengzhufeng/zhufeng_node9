@@ -7,7 +7,7 @@ http.createServer(function (req,res) {
     }else if(req.url == '/index.js'){
         var timer = fs.statSync('./index.js').ctime.toUTCString();
         var ctime = req.headers['if-modified-since']; //上一次修改时间
-        if(ctime&&(timer==ctime)){
+        if(ctime&&(timer==ctime)){ //缓存的时间和当前修改过的时间相同，才会调用缓存
             res.statusCode = 304;
             res.end('');
         }else{
@@ -19,3 +19,5 @@ http.createServer(function (req,res) {
         res.end('not found');
     }
 }).listen(8888);
+
+
