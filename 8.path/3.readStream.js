@@ -14,6 +14,6 @@ var timer = setInterval(function () {
 },1000);
 rs.on('end',function () {
     console.log(str);
-    clearInterval(timer)
+    clearInterval(timer);
 });
 // pause resume data end error
