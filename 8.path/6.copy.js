@@ -4,7 +4,19 @@
 //3.等待抽干后再调用恢复方法，恢复读取 在drain方法中调用resume
 //4.监听读取后关闭掉写入方法ws.end方法 rs.on('end')方法中调用ws.end
 var fs = require('fs');
-function copy(source,target) {
-    
+function pipe(source,target) {
+    var rs = fs.createReadStream(source);
+    var ws = fs.createWriteStream(target);
+    rs.on('data',function (data) {
+        var flag = ws.write(data);
+        if(!flag){rs.pause();}
+    });
+    ws.on('drain',function () {
+        console.log('干了');
+        rs.resume();
+    });
+    rs.on('end',function () {
+        ws.end();
+    });
 }
-copy('./name.txt','./name1.txt')
+pipe('./name.txt','./name1.txt');
